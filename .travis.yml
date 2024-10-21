@@ -1,17 +1,20 @@
 language: python
 python:
-  - "3.8"
+  - "3.12"  # Or another version like 3.8 if preferred
 
+# Install dependencies
 install:
-  - pip install setuptools==59.6.0
-  - pip install awsebcli
-  - pip install -r requirements.txt
+  - pip install setuptools==59.6.0  # This seems to be required for your environment
+  - pip install awsebcli  # This was part of your install process
+  - pip install black flake8 coverage coveralls  # Install these globally
+  - pip install -r requirements.txt  # Your project-specific dependencies
 
-
+# Run checks and tests
 script:
-  - black --check .
-  - flake8 .
-  - coverage run manage.py test
+  - black --check .  # Check formatting with black
+  - flake8 .  # Linting with flake8
+  - coverage run manage.py test  # Run tests and collect coverage
 
-after_scripts:
-- coveralls
+# Report coverage results
+after_success:
+  - coveralls
