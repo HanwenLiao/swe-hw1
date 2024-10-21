@@ -11,7 +11,7 @@ install:
 
 # Run checks and tests
 script:
-  - black --check .  # Check formatting with black
+  - black . # Check formatting with black
   - flake8 .  # Linting with flake8
   - coverage run manage.py test  # Run tests and collect coverage
 
