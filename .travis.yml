@@ -1,23 +1,18 @@
 language: python
+python:
+  - "3.13"  # Replace with your Python version
+
+# Install dependencies
 install:
   - pip install -r requirements.txt
+  - pip install black flake8 coverage coveralls
 
+# Run the test suite, format and lint checks
 script:
   - black --check .
-  - flake8 --max-line-length=88 .
-  - export DJANGO_SETTINGS_MODULE=mysite.settings
-  - coverage run --source='djangoProject' manage.py test polls
- 
-after_scripts:
+  - flake8
+  - coverage run --source=<your_project_name> manage.py test  # Replace <your_project_name>
+  
+# Report code coverage
+after_success:
   - coveralls
-
-deploy:
-  provider: elasticbeanstalk
-  access_key_id: $ACCESS_KEY_ID
-  secret_access_key: $SECRET_ACCESS_KEY
-  region: us-west-2
-  app: django-tutorial
-  env: django-env
-  bucket_name: elasticbeanstalk-us-west-2-290512176394
-  on:
-    branch: main
