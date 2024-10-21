@@ -1,30 +1,17 @@
 language: python
 python:
-  - "3.12"  # Use 3.12 to bootstrap, since 3.13 isn't available yet
+  - "3.8"
 
-before_install:
-  # Install Python 3.13 manually
-  - sudo apt-get update
-  - sudo apt-get install -y build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python3-openssl git
-  - wget https://www.python.org/ftp/python/3.13.0/Python-3.13.0.tgz
-  - tar xzf Python-3.13.0.tgz
-  - cd Python-3.13.0
-  - ./configure --enable-optimizations
-  - make -j$(nproc)
-  - sudo make altinstall
-  - python3.13 --version  # Verify installation
-
-# Continue with the rest of your install and script steps
 install:
+  - pip install setuptools==59.6.0
+  - pip install awsebcli
   - pip install -r requirements.txt
-  - pip install black flake8 coverage coveralls
 
-# Run the test suite, format and lint checks
+
 script:
   - black --check .
-  - flake8
-  - coverage run --source=<your_project_name> manage.py test  # Replace <your_project_name>
-  
-# Report code coverage
-after_success:
-  - coveralls
+  - flake8 .
+  - coverage run manage.py test
+
+after_scripts:
+- coveralls
