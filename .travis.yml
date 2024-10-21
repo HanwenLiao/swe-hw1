@@ -1,6 +1,6 @@
 language: python
 python:
-  - "3.12"  # Or another version like 3.8 if preferred
+  - "3.8"  # Or another version like 3.8 if preferred
 
 # Install dependencies
 install:
