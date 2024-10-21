@@ -14,7 +14,6 @@ script:
   - black . # Check formatting with black
   - flake8 .  # Linting with flake8
   - coverage run manage.py test  # Run tests and collect coverage
-  - coverage run --source=djangoProject manage.py test
 
 
 # Report coverage results
